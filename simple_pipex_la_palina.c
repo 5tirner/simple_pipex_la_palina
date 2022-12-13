@@ -1,3 +1,6 @@
+#include "../libft/libft.h"
+#include <fcntl.h>
+#include <stdio.h>
 char	*ft_find_path(char	*cmd, char **env)
 {
 	char *current;
@@ -100,5 +103,5 @@ int main(int ac, char **av, char **env)
 		parent_proc(av, env, fd);
 	}
 	else
-		printf("Inavalid");
+		printf("Inavalidina la palina argemantina la ciguina\n");
 }
