@@ -1,0 +1,26 @@
+In the the_parent_process function,
+the fd[1] file descriptor (the write end of the pipe) is closed after the standard output has been redirected to the fd_out file descriptor. 
+This is done to prevent the write end of the pipe from staying open and potentially causing issues.
+When a pipe is created,
+it has two file descriptors associated with it: one for reading and one for writing.
+Closing the write end of the pipe allows the program to read from the pipe until it reaches the end of the file,
+at which point the read system call will return 0. 
+This indicates that there is no more data to be read from the pipe and allows the program to terminate gracefully.
+
+find path : 
+This code is trying to find the path to a given command cmd in a list of directories specified in the PATH environment variable. 
+It does this by splitting the value of the PATH variable on the : character, which separates directories in the PATH on Unix-like systems.
+It then iterates over the list of directories and concatenates each directory with the cmd and checks if the resulting path exists using the access function. 
+If the path exists, it returns the path, otherwise it continues to the next directory in the list. 
+If it has checked all the directories and the command was not found, it returns 0.
+
+waitpid :
+Setting the second argument to NULL means that the waitpid() function will not return the status of the child process. This is not necessary in this case because the code is not doing anything with the status of the child process. Setting the third argument to 0 means that the waitpid() function will use the default behavior, which is to wait for the child process to finish before returning.
+
+In summary, the code is using waitpid() with the default options to wait for the child process to finish before continuing. This ensures that the parent process does not attempt to read from the pipe until the child process has finished writing to it.
+
+env in execve :
+When execve is called, it replaces the current process image with a new process image specified by the arguments, and then executes the new process.
+This means that the new process will inherit the environment of the old process unless the env argument is used to specify a different environment. 
+If the env argument is used, it will replace the environment of the old process with the environment specified in the env argument. 
+This allows a program to execute another program with a different set of environment variables.
